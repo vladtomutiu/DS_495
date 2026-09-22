@@ -1,0 +1,194 @@
+---
+title: "Project"
+format: html
+editor: visual
+---
+
+```{r}
+library(googlesheets4)
+```
+
+```{r}
+sheet_url <- "https://docs.google.com/spreadsheets/d/1yBd8ifEPHZ9EVhUWU2qNg6GV-W5EqIqvbT1iSLjNUjs/edit?gid=2009146012#gid=2009146012"
+
+sheet_names(sheet_url)
+```
+
+```{r}
+Chaminade <- read_sheet(sheet_url, sheet = "Sheet1")
+HPU <- read_sheet(sheet_url, sheet = "Sheet2")
+Hilo <- read_sheet(sheet_url, sheet = "Sheet3")
+Dominican <- read_sheet(sheet_url, sheet = "Sheet4")
+Azusa <- read_sheet(sheet_url, sheet = "Sheet5")
+Biola <- read_sheet(sheet_url, sheet = "Sheet6")
+Jessup <- read_sheet(sheet_url, sheet = "Sheet7")
+Vanguard <- read_sheet(sheet_url, sheet = "Sheet8")
+Concordia <- read_sheet(sheet_url, sheet = "Sheet9")
+Westmont <- read_sheet(sheet_url, sheet = "Sheet10")
+Menlo <- read_sheet(sheet_url, sheet = "Sheet11")
+Fresno <- read_sheet(sheet_url, sheet = "Sheet12")
+Point_Loma <- read_sheet(sheet_url, sheet = "Sheet13")
+xG <- read_sheet(sheet_url, sheet = "Sheet14")
+```
+
+```{r}
+library(dplyr)
+
+Point_Loma <- Point_Loma %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Azusa <- Azusa %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Biola <- Biola %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Chaminade <- Chaminade %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Concordia <- Concordia %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Dominican <- Dominican %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Fresno <- Fresno %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Hilo <- Hilo %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+HPU <- HPU %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Jessup <- Jessup %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Menlo <- Menlo %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Vanguard <- Vanguard %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+Westmont <- Westmont %>%
+  mutate(
+    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
+    xG_diff    = xG_for - xG_against,
+    xResult    = case_when(
+      xG_diff >= 0.5  ~ "W",
+      xG_diff <= -0.5 ~ "L",
+      TRUE            ~ "D"
+    )
+  )
+
+
+```
