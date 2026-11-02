@@ -1,0 +1,243 @@
+---
+title: "PacWest Men's Soccer: Expected Goals from Shot Counts"
+author: "Vlad"
+format:
+  html:
+    toc: true
+    embed-resources: true
+editor: visual
+execute:
+  warning: false
+  message: false
+---
+
+## Setup
+
+Run `01_clean.R` first. It reads the Google Sheet output, stacks the 13 team tabs, and saves `data/team_games.csv`. Everything here starts from that file.
+
+```{r}
+library(tidyverse)
+
+team_games <- read_csv("data/team_games.csv")
+games      <- read_csv("data/games.csv")
+
+glimpse(team_games)
+```
+
+`team_games` has one row per team per game. A conference game therefore appears twice, once from each side. `games` has one row per conference match.
+
+## The xG measure
+
+The weights live in one place, so changing them changes everything below.
+
+```{r}
+w_on_target  <- 0.246   # value of a shot on target
+w_off_target <- 0.070   # value of a shot that missed or was blocked
+draw_margin  <- 0.5     # |xG difference| smaller than this = predicted draw
+
+est_xg <- function(sot, shots_off) {
+  sot * w_on_target + shots_off * w_off_target
+}
+```
+
+One `mutate()` replaces the 13 copied blocks:
+
+```{r}
+team_games <- team_games |>
+  mutate(
+    xg_for     = est_xg(sot_for, shots_off_for),
+    xg_against = est_xg(sot_against, shots_off_against),
+    xg_diff    = xg_for - xg_against,
+    x_result   = case_when(
+      xg_diff >=  draw_margin ~ "W",
+      xg_diff <= -draw_margin ~ "L",
+      TRUE                    ~ "D"))
+```
+
+## How good is it?
+
+### Season totals by team
+
+```{r}
+team_summary <- team_games |>
+  group_by(team) |>
+  summarise(
+    games       = n(),
+    points      = sum(points),
+    goals_for   = sum(goals_for),
+    xg_for      = sum(xg_for),
+    goals_minus_xg = goals_for - xg_for,
+    goals_against  = sum(goals_against),
+    xg_against     = sum(xg_against)) |>
+  arrange(desc(points))
+
+team_summary
+```
+
+```{r}
+ggplot(team_summary, aes(xg_for, goals_for, label = team)) +
+  geom_abline(linetype = "dashed") +
+  geom_point() +
+  geom_text(vjust = -0.8, size = 3) +
+  labs(x = "Estimated xG", y = "Actual goals",
+       title = "Goals vs. estimated xG, season totals",
+       subtitle = "Teams above the line scored more than their shots predict")
+```
+
+### Game by game
+
+```{r}
+# Predicted result vs. actual result
+team_games |>
+  count(result, x_result) |>
+  pivot_wider(names_from = x_result, values_from = n, values_fill = 0)
+
+# Share of games called correctly
+mean(team_games$result == team_games$x_result)
+```
+
+```{r}
+ggplot(team_games, aes(xg_for, goals_for)) +
+  geom_jitter(width = 0, height = 0.1, alpha = 0.4) +
+  geom_smooth(method = "lm") +
+  labs(x = "Estimated xG", y = "Goals", title = "Goals vs. estimated xG, single games")
+```
+
+## Where this goes next
+
+### 1. Where do 0.246 and 0.070 come from?
+
+-   If they were calcualted to fit the 2025 season, how do you know they aren't just describing the results of 2025? Is it generalizable?
+-   Fit them instead of picking them. How close are the fitted weights to yours? How wide are their confidence intervals?
+
+```{r}
+m <- glm(goals_for ~ 0 + sot_for + shots_off_for, family = poisson(link = "identity"), data   = team_games)
+
+summary(m)
+
+
+# Learn the two weights from one set of games
+fit_xg <- function(train) {
+  coef(lm(goals_for ~ 0 + sot_for + shots_off_for, data = train))
+}
+
+# Apply those weights to a different set of games and score them
+test_xg <- function(test, w, train, draw_margin = 0.5) {
+  test |>
+    mutate(
+      xg_for     = w[1] * sot_for     + w[2] * shots_off_for,
+      xg_against = w[1] * sot_against + w[2] * shots_off_against,
+      x_result   = case_when(xg_for - xg_against >=  draw_margin ~ "W",
+                             xg_for - xg_against <= -draw_margin ~ "L",
+                             TRUE ~ "D")) |>
+    summarise(
+      games           = n(),
+      actual_goals    = sum(goals_for),
+      predicted_goals = sum(xg_for),
+      error_per_game  = sqrt(mean((goals_for - xg_for)^2)),
+      # baseline: guess the training games' average for every game
+      baseline_error  = sqrt(mean((goals_for - mean(train$goals_for))^2)),
+      result_accuracy = mean(result == x_result))
+}
+
+# Example: learn from each team's first 5 games, test on its last 5
+train <- filter(team_games, game_no <= 5)
+test  <- filter(team_games, game_no >  5)
+
+w <- fit_xg(train)
+w
+test_xg(test, w, train)
+
+# Vlad's own weights on the same test games, for comparison
+print(test_xg(test, c(0.33, 0.15), train))
+
+```
+
+### 2. Does it work on games it hasn't seen?
+
+-   Add the 2023 and 2024 seasons (same tabs, set `SEASON` in `01_clean.R`, stack the three files). Fit on two seasons, test on the third.
+-   Compare against simple baselines. What accuracy do you get from "the home team wins"? From "the team with more shots wins"? A model only matters if it beats those.
+
+### 3. Does xG tell you something goals don't?
+
+-   Split the season in half (`game_no` is the order of games on each tab). Which predicts second-half points better: first-half goal difference, or first-half xG difference?
+-   Which teams score well above or below their xG? Is that gap stable from the first half to the second, or does it disappear?
+
+### 4. What is the measure missing?
+
+-   Home vs. away, and games that needed a flight across the Pacific (`venue`, `travelled_over_ocean`).
+-   Opponent strength: 15 shots against the best defense is not 15 shots against the worst.
+-   Red cards, corners, and anything else in the box score.
+
+### 5. A hard cutoff or a probability?
+
+-   A 0.5 margin turns xG into W/D/L. Why 0.5? How does accuracy change at 0.25 or 0.75?
+-   Treat each team's goals as Poisson with mean xG and compute the probability of a win, draw, and loss. Use `games` here so each match counts once.
+
+### 
+
+```{r}
+library(dplyr)
+
+set.seed(1) #means it is reproducible, every time the code chunk is ran it will give same answer
+n_sims <- 10000 #10,000 simulations
+
+# creates the real 2025 table: using points as the main way to decide order, then goal difference, then goals for
+actual <- team_games %>%
+  group_by(team) %>%
+  summarize(pts = sum(points), gd = sum(goal_diff), gf = sum(goals_for)) %>%
+  arrange(desc(pts), desc(gd), desc(gf)) %>%
+  mutate(actual_pos = row_number()) # gives each team its acutal conference rank
+
+# one row per real game (each game appears twice in team_games)
+games <- team_games %>% distinct(game_id, .keep_all = TRUE)
+
+# has each team matching their position in the standings.
+# will be used to keep track of each team's results during simulations.
+home <- match(games$team,     actual$team)
+away <- match(games$opponent, actual$team)
+
+# Function simulates an entire season using expected goals (xG)
+
+# row 2 and 3 randomly generate the number of goals scored in each game
+# A Poisson distribution is used, with each team's expected goals as the average
+
+# row 4-5 calculates the pointseach team should get based on the simulated score
+simulate_season <- function() {
+  gA <- rpois(nrow(games), games$xg_for)       # goals scored by the listed team
+  gB <- rpois(nrow(games), games$xg_against)   # goals scored by the opponent
+  ptsA <- 3 * (gA > gB) + (gA == gB)
+  ptsB <- 3 * (gB > gA) + (gA == gB)
+  who  <- c(home, away)                        # Combine results for both the home and away team so we can calculate total points, goal difference, and goals scored
+  pts  <- rowsum(c(ptsA, ptsB), who)[, 1]
+  gd   <- rowsum(c(gA - gB, gB - gA), who)[, 1]
+  gf   <- rowsum(c(gA, gB), who)[, 1]          # calculate for all teams and use rowsum() to group the results by team
+  pos  <- integer(13)                          # Create a vector to store the final position of each of the 13 teams
+  pos[order(-pts, -gd, -gf, runif(13))] <- 1:13   # random coin flip if still tied
+  pos
+}
+
+positions <- replicate(n_sims, simulate_season())   # 13 teams x 10,000 seasons
+hit <- positions == actual$actual_pos                # TRUE = finished in its real spot
+
+# 1) per-team results: real position vs expected position
+actual %>%
+  mutate(
+    p_real_spot  = rowMeans(hit),
+    avg_sim_pos  = rowMeans(positions),
+    expected_pos = rank(avg_sim_pos, ties.method = "first")
+  ) %>%
+  select(team, actual_pos, expected_pos, avg_sim_pos, p_real_spot)
+
+
+```
+
+send simulation to amber
+
+create visualizations/clean it up
+
+search name of what I just did
+
+what do soccer statisticians do with this data
+
+look at multiple years, fit them, see how they relate to 2026

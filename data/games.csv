@@ -1,0 +1,66 @@
+season,game_id,home_team,away_team,home_goals,away_goals,home_shots,away_shots,home_sot,away_sot,home_result
+2025,Azusa Pacific v Dominican,Azusa Pacific,Dominican,4,3,19,9,8,4,W
+2025,Azusa Pacific v Westmont,Azusa Pacific,Westmont,3,3,10,11,7,7,D
+2025,Azusa Pacific v Biola,Azusa Pacific,Biola,1,2,12,9,6,5,L
+2025,Azusa Pacific v Menlo,Azusa Pacific,Menlo,0,0,12,6,5,3,D
+2025,Azusa Pacific v Jessup,Azusa Pacific,Jessup,6,1,13,12,7,9,W
+2025,Biola v Jessup,Biola,Jessup,5,0,15,8,9,4,W
+2025,Biola v Menlo,Biola,Menlo,1,2,14,11,5,3,L
+2025,Biola v Point Loma,Biola,Point Loma,0,5,7,11,2,9,L
+2025,Biola v Concordia Irvine,Biola,Concordia Irvine,0,7,7,16,2,11,L
+2025,Biola v Fresno Pacific,Biola,Fresno Pacific,1,2,15,13,6,8,L
+2025,Chaminade v Hawaii Pacific,Chaminade,Hawaii Pacific,0,4,4,13,1,8,L
+2025,Chaminade v Azusa Pacific,Chaminade,Azusa Pacific,0,1,5,18,0,7,L
+2025,Chaminade v Biola,Chaminade,Biola,1,1,5,21,3,12,D
+2025,Chaminade v Concordia Irvine,Chaminade,Concordia Irvine,0,4,1,24,1,15,L
+2025,Chaminade v Westmont,Chaminade,Westmont,4,3,14,18,7,10,W
+2025,Concordia Irvine v Dominican,Concordia Irvine,Dominican,2,1,23,15,5,6,W
+2025,Concordia Irvine v Jessup,Concordia Irvine,Jessup,2,0,23,6,9,1,W
+2025,Concordia Irvine v Point Loma,Concordia Irvine,Point Loma,2,3,16,13,8,8,L
+2025,Concordia Irvine v Vanguard,Concordia Irvine,Vanguard,1,2,9,16,4,8,L
+2025,Concordia Irvine v Azusa Pacific,Concordia Irvine,Azusa Pacific,1,0,14,12,2,4,W
+2025,Dominican v Hawaii Hilo,Dominican,Hawaii Hilo,2,2,19,16,8,7,D
+2025,Dominican v Chaminade,Dominican,Chaminade,1,0,13,8,4,6,W
+2025,Dominican v Fresno Pacific,Dominican,Fresno Pacific,1,3,15,16,6,8,L
+2025,Dominican v Menlo,Dominican,Menlo,1,3,6,10,2,5,L
+2025,Dominican v Hawaii Pacific,Dominican,Hawaii Pacific,2,1,8,11,5,5,W
+2025,Fresno Pacific v Chaminade,Fresno Pacific,Chaminade,3,0,27,7,10,4,W
+2025,Fresno Pacific v Hawaii Pacific,Fresno Pacific,Hawaii Pacific,4,2,23,16,10,7,W
+2025,Fresno Pacific v Hawaii Hilo,Fresno Pacific,Hawaii Hilo,2,0,8,19,4,7,W
+2025,Fresno Pacific v Westmont,Fresno Pacific,Westmont,1,2,20,7,9,2,L
+2025,Fresno Pacific v Concordia Irvine,Fresno Pacific,Concordia Irvine,5,2,16,16,12,8,W
+2025,Hawaii Hilo v Biola,Hawaii Hilo,Biola,2,1,12,4,4,1,W
+2025,Hawaii Hilo v Vanguard,Hawaii Hilo,Vanguard,1,2,12,7,4,5,L
+2025,Hawaii Hilo v Point Loma,Hawaii Hilo,Point Loma,2,0,7,7,4,2,W
+2025,Hawaii Hilo v Concordia Irvine,Hawaii Hilo,Concordia Irvine,3,1,13,7,6,5,W
+2025,Hawaii Hilo v Chaminade,Hawaii Hilo,Chaminade,3,0,16,3,10,0,W
+2025,Hawaii Pacific v Vanguard,Hawaii Pacific,Vanguard,0,3,8,16,7,8,L
+2025,Hawaii Pacific v Azusa Pacific,Hawaii Pacific,Azusa Pacific,2,3,8,11,3,6,L
+2025,Hawaii Pacific v Westmont,Hawaii Pacific,Westmont,3,2,18,17,8,9,W
+2025,Hawaii Pacific v Point Loma,Hawaii Pacific,Point Loma,1,3,8,14,2,7,L
+2025,Hawaii Pacific v Hawaii Hilo,Hawaii Pacific,Hawaii Hilo,0,3,11,22,5,9,L
+2025,Jessup v Hawaii Pacific,Jessup,Hawaii Pacific,0,4,6,10,3,7,L
+2025,Jessup v Hawaii Hilo,Jessup,Hawaii Hilo,1,3,6,16,3,7,L
+2025,Jessup v Dominican,Jessup,Dominican,2,4,21,14,8,9,L
+2025,Jessup v Fresno Pacific,Jessup,Fresno Pacific,2,2,7,20,3,7,D
+2025,Jessup v Chaminade,Jessup,Chaminade,1,3,9,6,2,4,L
+2025,Menlo v Hawaii Hilo,Menlo,Hawaii Hilo,1,2,10,8,3,3,L
+2025,Menlo v Westmont,Menlo,Westmont,2,1,12,9,3,4,W
+2025,Menlo v Fresno Pacific,Menlo,Fresno Pacific,4,2,13,13,7,6,W
+2025,Menlo v Chaminade,Menlo,Chaminade,1,1,26,2,12,2,D
+2025,Menlo v Hawaii Pacific,Menlo,Hawaii Pacific,3,1,21,4,8,1,W
+2025,Point Loma v Menlo,Point Loma,Menlo,2,1,16,6,10,3,W
+2025,Point Loma v Vanguard,Point Loma,Vanguard,4,2,21,12,9,4,W
+2025,Point Loma v Azusa Pacific,Point Loma,Azusa Pacific,2,1,9,9,4,4,W
+2025,Point Loma v Jessup,Point Loma,Jessup,9,0,20,6,14,2,W
+2025,Point Loma v Fresno Pacific,Point Loma,Fresno Pacific,4,0,17,9,10,3,W
+2025,Vanguard v Jessup,Vanguard,Jessup,1,0,19,10,7,3,W
+2025,Vanguard v Azusa Pacific,Vanguard,Azusa Pacific,1,1,10,10,3,3,D
+2025,Vanguard v Biola,Vanguard,Biola,1,1,22,9,9,4,D
+2025,Vanguard v Dominican,Vanguard,Dominican,5,2,13,10,9,4,W
+2025,Vanguard v Menlo,Vanguard,Menlo,1,0,10,8,6,5,W
+2025,Westmont v Concordia Irvine,Westmont,Concordia Irvine,0,2,7,19,1,9,L
+2025,Westmont v Biola,Westmont,Biola,1,2,23,16,7,5,L
+2025,Westmont v Vanguard,Westmont,Vanguard,1,6,9,15,4,8,L
+2025,Westmont v Point Loma,Westmont,Point Loma,1,2,11,13,2,6,L
+2025,Westmont v Dominican,Westmont,Dominican,3,0,23,11,13,7,W

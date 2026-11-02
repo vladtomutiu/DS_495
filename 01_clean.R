@@ -1,0 +1,174 @@
+# 01_clean.R
+# PacWest men's soccer: 13 team tabs -> two clean tables
+# run this first, and again any time the spreadsheet changes
+# output: data/team_games.csv (one row per team per game)
+#         data/games.csv      (one row per conference match)
+
+library(tidyverse)
+library(readxl)
+
+# settings
+
+# download the Google Sheet as .xlsx (File > Download) and save it in data/
+SOURCE <- "data/Pacwest data.xlsx"
+SEASON <- 2025
+
+# tab name -> team name. if you rename the tabs, update `sheet` here
+teams <- tribble(
+  ~sheet,    ~team,              ~home_state,
+  "Sheet1",  "Chaminade",        "HI",
+  "Sheet2",  "Hawaii Pacific",   "HI",
+  "Sheet3",  "Hawaii Hilo",      "HI",
+  "Sheet4",  "Dominican",        "CA",
+  "Sheet5",  "Azusa Pacific",    "CA",
+  "Sheet6",  "Biola",            "CA",
+  "Sheet7",  "Jessup",           "CA",
+  "Sheet8",  "Vanguard",         "CA",
+  "Sheet9",  "Concordia Irvine", "CA",
+  "Sheet10", "Westmont",         "CA",
+  "Sheet11", "Menlo",            "CA",
+  "Sheet12", "Fresno Pacific",   "CA",
+  "Sheet13", "Point Loma",       "CA")
+
+# every spelling of an opponent -> one name
+# keys are lowercase with punctuation removed (see clean_name below)
+# add a row here if the checks below flag a misspelling
+aliases <- tribble(
+  ~opp_key,               ~opponent,
+  "chaminade",            "Chaminade",
+  "hawaii pacific",       "Hawaii Pacific",
+  "hpu",                  "Hawaii Pacific",
+  "hawaii hilo",          "Hawaii Hilo",
+  "uh hilo",              "Hawaii Hilo",
+  "univ of hawaii hilo",  "Hawaii Hilo",
+  "hilo",                 "Hawaii Hilo",
+  "dominican",            "Dominican",
+  "dominican ca",         "Dominican",
+  "azusa pacific",        "Azusa Pacific",
+  "azusa",                "Azusa Pacific",
+  "biola",                "Biola",
+  "jessup",               "Jessup",
+  "william jessup",       "Jessup",
+  "vanguard",             "Vanguard",
+  "concordia irvine",     "Concordia Irvine",
+  "concordia",            "Concordia Irvine",
+  "cui",                  "Concordia Irvine",
+  "westmont",             "Westmont",
+  "menlo",                "Menlo",
+  "fresno pacific",       "Fresno Pacific",
+  "fresno",               "Fresno Pacific",
+  "point loma",           "Point Loma",
+  "point loma nazarene",  "Point Loma")
+
+# "vs Hawai'i Pacific" -> "hawaii pacific"
+clean_name <- function(x) {
+  x |>
+    str_to_lower() |>
+    str_remove("^(vs|at)\\s+") |>
+    str_remove_all("['‘’ʻ.]") |>
+    str_replace_all("[^a-z ]", " ") |>
+    str_squish()
+}
+
+# read and stack
+
+read_tab <- function(sheet) {
+  read_excel(SOURCE, sheet = sheet) |>
+    select(opponent_raw  = Opponent,
+           goals_for     = Goals,
+           goals_against = `Goals against`,
+           shots_for     = `Total shots for`,
+           shots_against = `Total shots against`,
+           sot_for       = `SoT for`,
+           sot_against   = `SoT against`) |>
+    filter(str_detect(opponent_raw, "^(vs|at) ")) |>   # drops the totals row
+    mutate(game_no = row_number())                      # no dates in the sheet, so entry order stands in
+}
+
+stacked <- teams |>
+  mutate(data = map(sheet, read_tab)) |>
+  unnest(data)
+
+# join 1: opponent names
+# opponents not in `aliases` come back NA = non-conference
+
+team_games <- stacked |>
+  mutate(opp_key = clean_name(opponent_raw)) |>
+  left_join(aliases, by = "opp_key") |>
+  left_join(select(teams, opponent = team, opp_home_state = home_state),
+            by = "opponent") |>
+  mutate(
+    season     = SEASON,
+    conference = !is.na(opponent),
+    opponent   = coalesce(opponent, str_remove(opponent_raw, "^(vs|at)\\s+")),
+    venue      = if_else(str_detect(opponent_raw, "^at "), "away", "home"),
+    game_state = if_else(venue == "home", home_state, opp_home_state),
+    travelled_over_ocean = game_state != home_state,
+    home_team  = if_else(venue == "home", team, opponent),
+    away_team  = if_else(venue == "home", opponent, team),
+    game_id    = if_else(conference, str_c(home_team, " v ", away_team), NA),
+    shots_off_for     = shots_for - sot_for,
+    shots_off_against = shots_against - sot_against,
+    goal_diff = goals_for - goals_against,
+    result    = case_when(goal_diff > 0 ~ "W",
+                          goal_diff < 0 ~ "L",
+                          TRUE          ~ "D"),
+    points    = case_when(result == "W" ~ 3,
+                          result == "D" ~ 1,
+                          result == "L" ~ 0)) |>
+  select(season, team, game_no, opponent, conference, venue, game_state,
+         travelled_over_ocean, result, points, goal_diff,
+         goals_for, goals_against, shots_for, shots_against,
+         sot_for, sot_against, shots_off_for, shots_off_against,
+         game_id, opponent_raw, sheet) |>
+  arrange(team, game_no)
+
+# checks: read these every time
+# print() so they show up when the script is sourced
+
+print(count(team_games, team, conference))
+
+# anything here that's actually a PacWest team needs a row in `aliases`
+print(team_games |> filter(!conference) |> count(opponent_raw))
+
+# missing or impossible numbers (goals > SoT can be an own goal, but check)
+print(team_games |>
+  filter(if_any(goals_for:sot_against, is.na) |
+           sot_for > shots_for | sot_against > shots_against |
+           goals_for > sot_for | goals_against > sot_against))
+
+# join 2: each game against the other team's record of it
+
+conf <- filter(team_games, conference)
+
+mirror <- conf |>
+  inner_join(conf, by = c("game_id", "team" = "opponent", "opponent" = "team"),
+             suffix = c("", "_theirs"))
+
+# the two tabs disagree -> one of them has a typo
+print(mirror |>
+  filter(goals_for != goals_against_theirs |
+           shots_for != shots_against_theirs |
+           sot_for   != sot_against_theirs) |>
+  select(game_id, team, goals_for, goals_against_theirs,
+         shots_for, shots_against_theirs, sot_for, sot_against_theirs))
+
+# game is on only one tab -> missing row, vs/at mix-up, or misspelling
+print(anti_join(conf, mirror, by = c("game_id", "team")) |>
+  select(team, game_no, opponent_raw))
+
+# one row per match, from the home team's side
+# use this whenever each game should count once
+games <- conf |>
+  filter(venue == "home") |>
+  transmute(season, game_id,
+            home_team  = team,      away_team  = opponent,
+            home_goals = goals_for, away_goals = goals_against,
+            home_shots = shots_for, away_shots = shots_against,
+            home_sot   = sot_for,   away_sot   = sot_against,
+            home_result = result)
+
+# save
+
+write_csv(team_games, "data/team_games.csv")
+write_csv(games, "data/games.csv")

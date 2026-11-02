@@ -1,0 +1,131 @@
+season,team,game_no,opponent,conference,venue,game_state,travelled_over_ocean,result,points,goal_diff,goals_for,goals_against,shots_for,shots_against,sot_for,sot_against,shots_off_for,shots_off_against,game_id,opponent_raw,sheet
+2025,Azusa Pacific,1,Dominican,TRUE,home,CA,FALSE,W,3,1,4,3,19,9,8,4,11,5,Azusa Pacific v Dominican,vs Dominican (CA),Sheet5
+2025,Azusa Pacific,2,Chaminade,TRUE,away,HI,TRUE,W,3,1,1,0,18,5,7,0,11,5,Chaminade v Azusa Pacific,at Chaminade,Sheet5
+2025,Azusa Pacific,3,Hawaii Pacific,TRUE,away,HI,TRUE,W,3,1,3,2,11,8,6,3,5,5,Hawaii Pacific v Azusa Pacific,at Hawaii Pacific,Sheet5
+2025,Azusa Pacific,4,Westmont,TRUE,home,CA,FALSE,D,1,0,3,3,10,11,7,7,3,4,Azusa Pacific v Westmont,vs Westmont,Sheet5
+2025,Azusa Pacific,5,Concordia Irvine,TRUE,away,CA,FALSE,L,0,-1,0,1,11,14,2,2,9,12,Concordia Irvine v Azusa Pacific,at CUI,Sheet5
+2025,Azusa Pacific,6,Vanguard,TRUE,away,CA,FALSE,D,1,0,1,1,10,10,3,3,7,7,Vanguard v Azusa Pacific,at Vanguard,Sheet5
+2025,Azusa Pacific,7,Biola,TRUE,home,CA,FALSE,L,0,-1,1,2,12,9,6,5,6,4,Azusa Pacific v Biola,vs Biola,Sheet5
+2025,Azusa Pacific,8,Point Loma,TRUE,away,CA,FALSE,L,0,-1,1,2,9,9,4,4,5,5,Point Loma v Azusa Pacific,at Point Loma,Sheet5
+2025,Azusa Pacific,9,Menlo,TRUE,home,CA,FALSE,D,1,0,0,0,12,6,5,3,7,3,Azusa Pacific v Menlo,vs Menlo,Sheet5
+2025,Azusa Pacific,10,Jessup,TRUE,home,CA,FALSE,W,3,5,6,1,13,12,7,9,6,3,Azusa Pacific v Jessup,vs Jessup,Sheet5
+2025,Biola,1,Jessup,TRUE,home,CA,FALSE,W,3,5,5,0,15,8,9,4,6,4,Biola v Jessup,vs Jessup,Sheet6
+2025,Biola,2,Menlo,TRUE,home,CA,FALSE,L,0,-1,1,2,14,11,5,3,9,8,Biola v Menlo,vs Menlo,Sheet6
+2025,Biola,3,Hawaii Hilo,TRUE,away,HI,TRUE,L,0,-1,1,2,4,12,1,4,3,8,Hawaii Hilo v Biola,at Hawaii Hilo,Sheet6
+2025,Biola,4,Chaminade,TRUE,away,HI,TRUE,D,1,0,1,1,21,5,12,3,9,2,Chaminade v Biola,at Chaminade,Sheet6
+2025,Biola,5,Point Loma,TRUE,home,CA,FALSE,L,0,-5,0,5,7,11,2,9,5,2,Biola v Point Loma,vs Point Loma,Sheet6
+2025,Biola,6,Westmont,TRUE,away,CA,FALSE,W,3,1,2,1,16,23,5,7,11,16,Westmont v Biola,at Westmont,Sheet6
+2025,Biola,7,Azusa Pacific,TRUE,away,CA,FALSE,W,3,1,2,1,9,12,5,6,4,6,Azusa Pacific v Biola,at Azusa Pacific,Sheet6
+2025,Biola,8,Concordia Irvine,TRUE,home,CA,FALSE,L,0,-7,0,7,7,16,2,11,5,5,Biola v Concordia Irvine,vs CUI,Sheet6
+2025,Biola,9,Vanguard,TRUE,away,CA,FALSE,D,1,0,1,1,9,22,4,9,5,13,Vanguard v Biola,at Vanguard,Sheet6
+2025,Biola,10,Fresno Pacific,TRUE,home,CA,FALSE,L,0,-1,1,2,15,13,6,8,9,5,Biola v Fresno Pacific,vs Fresno Pacific,Sheet6
+2025,Chaminade,1,Fresno Pacific,TRUE,away,CA,TRUE,L,0,-3,0,3,7,27,4,10,3,17,Fresno Pacific v Chaminade,at Fresno Pacific,Sheet1
+2025,Chaminade,2,Dominican,TRUE,away,CA,TRUE,L,0,-1,0,1,8,13,6,4,2,9,Dominican v Chaminade,at Dominican,Sheet1
+2025,Chaminade,3,Hawaii Pacific,TRUE,home,HI,FALSE,L,0,-4,0,4,4,13,1,8,3,5,Chaminade v Hawaii Pacific,vs Hawai'i Pacific,Sheet1
+2025,Chaminade,4,Azusa Pacific,TRUE,home,HI,FALSE,L,0,-1,0,1,5,18,0,7,5,11,Chaminade v Azusa Pacific,vs Azusa Pacific,Sheet1
+2025,Chaminade,5,Biola,TRUE,home,HI,FALSE,D,1,0,1,1,5,21,3,12,2,9,Chaminade v Biola,vs Biola,Sheet1
+2025,Chaminade,6,Concordia Irvine,TRUE,home,HI,FALSE,L,0,-4,0,4,1,24,1,15,0,9,Chaminade v Concordia Irvine,vs CUI,Sheet1
+2025,Chaminade,7,Westmont,TRUE,home,HI,FALSE,W,3,1,4,3,14,18,7,10,7,8,Chaminade v Westmont,vs Westmont,Sheet1
+2025,Chaminade,8,Menlo,TRUE,away,CA,TRUE,D,1,0,1,1,2,26,2,12,0,14,Menlo v Chaminade,at Menlo,Sheet1
+2025,Chaminade,9,Jessup,TRUE,away,CA,TRUE,W,3,2,3,1,6,9,4,2,2,7,Jessup v Chaminade,at Jessup,Sheet1
+2025,Chaminade,10,Hawaii Hilo,TRUE,away,HI,FALSE,L,0,-3,0,3,3,16,0,10,3,6,Hawaii Hilo v Chaminade,at Hawaii Hilo,Sheet1
+2025,Concordia Irvine,1,Westmont,TRUE,away,CA,FALSE,W,3,2,2,0,19,7,9,1,10,6,Westmont v Concordia Irvine,at Westmont,Sheet9
+2025,Concordia Irvine,2,Dominican,TRUE,home,CA,FALSE,W,3,1,2,1,23,15,5,6,18,9,Concordia Irvine v Dominican,vs Dominican,Sheet9
+2025,Concordia Irvine,3,Jessup,TRUE,home,CA,FALSE,W,3,2,2,0,23,6,9,1,14,5,Concordia Irvine v Jessup,vs Jessup,Sheet9
+2025,Concordia Irvine,4,Point Loma,TRUE,home,CA,FALSE,L,0,-1,2,3,16,13,8,8,8,5,Concordia Irvine v Point Loma,vs Point Loma,Sheet9
+2025,Concordia Irvine,5,Vanguard,TRUE,home,CA,FALSE,L,0,-1,1,2,9,16,4,8,5,8,Concordia Irvine v Vanguard,vs Vanguard,Sheet9
+2025,Concordia Irvine,6,Azusa Pacific,TRUE,home,CA,FALSE,W,3,1,1,0,14,12,2,4,12,8,Concordia Irvine v Azusa Pacific,vs Azusa Pacific,Sheet9
+2025,Concordia Irvine,7,Chaminade,TRUE,away,HI,TRUE,W,3,4,4,0,24,1,15,1,9,0,Chaminade v Concordia Irvine,at Chaminade,Sheet9
+2025,Concordia Irvine,8,Hawaii Hilo,TRUE,away,HI,TRUE,L,0,-2,1,3,7,13,5,6,2,7,Hawaii Hilo v Concordia Irvine,at Hawaii Hilo,Sheet9
+2025,Concordia Irvine,9,Biola,TRUE,away,CA,FALSE,W,3,7,7,0,16,7,11,2,5,5,Biola v Concordia Irvine,at Biola,Sheet9
+2025,Concordia Irvine,10,Fresno Pacific,TRUE,away,CA,FALSE,L,0,-3,2,5,16,16,8,12,8,4,Fresno Pacific v Concordia Irvine,at Fresno Pacific,Sheet9
+2025,Dominican,1,Hawaii Hilo,TRUE,home,CA,FALSE,D,1,0,2,2,19,16,8,7,11,9,Dominican v Hawaii Hilo,vs Hawaii Hilo,Sheet4
+2025,Dominican,2,Chaminade,TRUE,home,CA,FALSE,W,3,1,1,0,13,8,4,6,9,2,Dominican v Chaminade,vs Chaminade,Sheet4
+2025,Dominican,3,Azusa Pacific,TRUE,away,CA,FALSE,L,0,-1,3,4,9,19,4,8,5,11,Azusa Pacific v Dominican,at Azusa Pacific,Sheet4
+2025,Dominican,4,Concordia Irvine,TRUE,away,CA,FALSE,L,0,-1,1,2,15,23,6,5,9,18,Concordia Irvine v Dominican,at CUI,Sheet4
+2025,Dominican,5,Jessup,TRUE,away,CA,FALSE,W,3,2,4,2,14,21,9,8,5,13,Jessup v Dominican,at Jessup,Sheet4
+2025,Dominican,6,Fresno Pacific,TRUE,home,CA,FALSE,L,0,-2,1,3,15,16,6,8,9,8,Dominican v Fresno Pacific,vs Fresno Pacific,Sheet4
+2025,Dominican,7,Menlo,TRUE,home,CA,FALSE,L,0,-2,1,3,6,10,2,5,4,5,Dominican v Menlo,vs Menlo,Sheet4
+2025,Dominican,8,Hawaii Pacific,TRUE,home,CA,FALSE,W,3,1,2,1,8,11,5,5,3,6,Dominican v Hawaii Pacific,vs Hawaii Pacific,Sheet4
+2025,Dominican,9,Vanguard,TRUE,away,CA,FALSE,L,0,-3,2,5,10,13,4,9,6,4,Vanguard v Dominican,at Vanguard,Sheet4
+2025,Dominican,10,Westmont,TRUE,away,CA,FALSE,L,0,-3,0,3,11,23,7,13,4,10,Westmont v Dominican,at Westmont,Sheet4
+2025,Fresno Pacific,1,Chaminade,TRUE,home,CA,FALSE,W,3,3,3,0,27,7,10,4,17,3,Fresno Pacific v Chaminade,vs Chaminade,Sheet12
+2025,Fresno Pacific,2,Hawaii Pacific,TRUE,home,CA,FALSE,W,3,2,4,2,23,16,10,7,13,9,Fresno Pacific v Hawaii Pacific,vs Hawaii Pacific,Sheet12
+2025,Fresno Pacific,3,Hawaii Hilo,TRUE,home,CA,FALSE,W,3,2,2,0,8,19,4,7,4,12,Fresno Pacific v Hawaii Hilo,vs Hawaii Hilo,Sheet12
+2025,Fresno Pacific,4,Westmont,TRUE,home,CA,FALSE,L,0,-1,1,2,20,7,9,2,11,5,Fresno Pacific v Westmont,vs Westmont,Sheet12
+2025,Fresno Pacific,5,Menlo,TRUE,away,CA,FALSE,L,0,-2,2,4,13,13,6,7,7,6,Menlo v Fresno Pacific,at Menlo,Sheet12
+2025,Fresno Pacific,6,Dominican,TRUE,away,CA,FALSE,W,3,2,3,1,16,15,8,6,8,9,Dominican v Fresno Pacific,at Dominican,Sheet12
+2025,Fresno Pacific,7,Jessup,TRUE,away,CA,FALSE,D,1,0,2,2,20,7,7,3,13,4,Jessup v Fresno Pacific,at Jessup,Sheet12
+2025,Fresno Pacific,8,Concordia Irvine,TRUE,home,CA,FALSE,W,3,3,5,2,16,16,12,8,4,8,Fresno Pacific v Concordia Irvine,vs CUI,Sheet12
+2025,Fresno Pacific,9,Biola,TRUE,away,CA,FALSE,W,3,1,2,1,13,15,8,6,5,9,Biola v Fresno Pacific,at Biola,Sheet12
+2025,Fresno Pacific,10,Point Loma,TRUE,away,CA,FALSE,L,0,-4,0,4,9,17,3,10,6,7,Point Loma v Fresno Pacific,at Point Loma,Sheet12
+2025,Hawaii Hilo,1,Dominican,TRUE,away,CA,TRUE,D,1,0,2,2,16,19,7,8,9,11,Dominican v Hawaii Hilo,at Dominican,Sheet3
+2025,Hawaii Hilo,2,Menlo,TRUE,away,CA,TRUE,W,3,1,2,1,8,10,3,3,5,7,Menlo v Hawaii Hilo,at Menlo,Sheet3
+2025,Hawaii Hilo,3,Jessup,TRUE,away,CA,TRUE,W,3,2,3,1,16,6,7,3,9,3,Jessup v Hawaii Hilo,at Jessup,Sheet3
+2025,Hawaii Hilo,4,Fresno Pacific,TRUE,away,CA,TRUE,L,0,-2,0,2,19,8,7,4,12,4,Fresno Pacific v Hawaii Hilo,at Fresno Pacific,Sheet3
+2025,Hawaii Hilo,5,Biola,TRUE,home,HI,FALSE,W,3,1,2,1,12,4,4,1,8,3,Hawaii Hilo v Biola,vs Biola,Sheet3
+2025,Hawaii Hilo,6,Vanguard,TRUE,home,HI,FALSE,L,0,-1,1,2,12,7,4,5,8,2,Hawaii Hilo v Vanguard,vs Vanguard,Sheet3
+2025,Hawaii Hilo,7,Point Loma,TRUE,home,HI,FALSE,W,3,2,2,0,7,7,4,2,3,5,Hawaii Hilo v Point Loma,vs Point Loma,Sheet3
+2025,Hawaii Hilo,8,Concordia Irvine,TRUE,home,HI,FALSE,W,3,2,3,1,13,7,6,5,7,2,Hawaii Hilo v Concordia Irvine,vs CUI,Sheet3
+2025,Hawaii Hilo,9,Chaminade,TRUE,home,HI,FALSE,W,3,3,3,0,16,3,10,0,6,3,Hawaii Hilo v Chaminade,vs Chaminade,Sheet3
+2025,Hawaii Hilo,10,Hawaii Pacific,TRUE,away,HI,FALSE,W,3,3,3,0,22,11,9,5,13,6,Hawaii Pacific v Hawaii Hilo,at Hawaii Pacific,Sheet3
+2025,Hawaii Pacific,1,Jessup,TRUE,away,CA,TRUE,W,3,4,4,0,10,6,7,3,3,3,Jessup v Hawaii Pacific,at Jessup,Sheet2
+2025,Hawaii Pacific,2,Fresno Pacific,TRUE,away,CA,TRUE,L,0,-2,2,4,16,23,7,10,9,13,Fresno Pacific v Hawaii Pacific,at Fresno Pacific,Sheet2
+2025,Hawaii Pacific,3,Chaminade,TRUE,away,HI,FALSE,W,3,4,4,0,13,4,8,1,5,3,Chaminade v Hawaii Pacific,at Chaminade,Sheet2
+2025,Hawaii Pacific,4,Vanguard,TRUE,home,HI,FALSE,L,0,-3,0,3,8,16,7,8,1,8,Hawaii Pacific v Vanguard,vs Vanguard,Sheet2
+2025,Hawaii Pacific,5,Azusa Pacific,TRUE,home,HI,FALSE,L,0,-1,2,3,8,11,3,6,5,5,Hawaii Pacific v Azusa Pacific,vs Azusa Pacific,Sheet2
+2025,Hawaii Pacific,6,Westmont,TRUE,home,HI,FALSE,W,3,1,3,2,18,17,8,9,10,8,Hawaii Pacific v Westmont,vs Westmont,Sheet2
+2025,Hawaii Pacific,7,Point Loma,TRUE,home,HI,FALSE,L,0,-2,1,3,8,14,2,7,6,7,Hawaii Pacific v Point Loma,vs Point Loma,Sheet2
+2025,Hawaii Pacific,8,Dominican,TRUE,away,CA,TRUE,L,0,-1,1,2,11,8,5,5,6,3,Dominican v Hawaii Pacific,at Dominican,Sheet2
+2025,Hawaii Pacific,9,Menlo,TRUE,away,CA,TRUE,L,0,-2,1,3,4,21,1,8,3,13,Menlo v Hawaii Pacific,at Menlo,Sheet2
+2025,Hawaii Pacific,10,Hawaii Hilo,TRUE,home,HI,FALSE,L,0,-3,0,3,11,22,5,9,6,13,Hawaii Pacific v Hawaii Hilo,vs Hawaii Hilo,Sheet2
+2025,Jessup,1,Hawaii Pacific,TRUE,home,CA,FALSE,L,0,-4,0,4,6,10,3,7,3,3,Jessup v Hawaii Pacific,vs Hawaii Pacific,Sheet7
+2025,Jessup,2,Hawaii Hilo,TRUE,home,CA,FALSE,L,0,-2,1,3,6,16,3,7,3,9,Jessup v Hawaii Hilo,vs Univ. of Hawaii-Hilo,Sheet7
+2025,Jessup,3,Biola,TRUE,away,CA,FALSE,L,0,-5,0,5,8,15,4,9,4,6,Biola v Jessup,at Biola,Sheet7
+2025,Jessup,4,Vanguard,TRUE,away,CA,FALSE,L,0,-1,0,1,10,19,3,7,7,12,Vanguard v Jessup,at Vanguard,Sheet7
+2025,Jessup,5,Concordia Irvine,TRUE,away,CA,FALSE,L,0,-2,0,2,6,23,1,9,5,14,Concordia Irvine v Jessup,at CUI,Sheet7
+2025,Jessup,6,Dominican,TRUE,home,CA,FALSE,L,0,-2,2,4,21,14,8,9,13,5,Jessup v Dominican,vs Dominican (CA),Sheet7
+2025,Jessup,7,Fresno Pacific,TRUE,home,CA,FALSE,D,1,0,2,2,7,20,3,7,4,13,Jessup v Fresno Pacific,vs Fresno Pacific,Sheet7
+2025,Jessup,8,Chaminade,TRUE,home,CA,FALSE,L,0,-2,1,3,9,6,2,4,7,2,Jessup v Chaminade,vs Chaminade,Sheet7
+2025,Jessup,9,Point Loma,TRUE,away,CA,FALSE,L,0,-9,0,9,6,20,2,14,4,6,Point Loma v Jessup,at Point Loma,Sheet7
+2025,Jessup,10,Azusa Pacific,TRUE,away,CA,FALSE,L,0,-5,1,6,12,13,9,7,3,6,Azusa Pacific v Jessup,at Azusa Pacific,Sheet7
+2025,Menlo,1,Hawaii Hilo,TRUE,home,CA,FALSE,L,0,-1,1,2,10,8,3,3,7,5,Menlo v Hawaii Hilo,vs Hawaii Hilo,Sheet11
+2025,Menlo,2,Point Loma,TRUE,away,CA,FALSE,L,0,-1,1,2,6,16,3,10,3,6,Point Loma v Menlo,at Point Loma,Sheet11
+2025,Menlo,3,Biola,TRUE,away,CA,FALSE,W,3,1,2,1,11,14,3,5,8,9,Biola v Menlo,at Biola,Sheet11
+2025,Menlo,4,Westmont,TRUE,home,CA,FALSE,W,3,1,2,1,12,9,3,4,9,5,Menlo v Westmont,vs Westmont,Sheet11
+2025,Menlo,5,Fresno Pacific,TRUE,home,CA,FALSE,W,3,2,4,2,13,13,7,6,6,7,Menlo v Fresno Pacific,vs Fresno Pacific,Sheet11
+2025,Menlo,6,Dominican,TRUE,away,CA,FALSE,W,3,2,3,1,10,6,5,2,5,4,Dominican v Menlo,at Dominican,Sheet11
+2025,Menlo,7,Chaminade,TRUE,home,CA,FALSE,D,1,0,1,1,26,2,12,2,14,0,Menlo v Chaminade,vs Chaminade,Sheet11
+2025,Menlo,8,Hawaii Pacific,TRUE,home,CA,FALSE,W,3,2,3,1,21,4,8,1,13,3,Menlo v Hawaii Pacific,vs Hawaii Pacific,Sheet11
+2025,Menlo,9,Azusa Pacific,TRUE,away,CA,FALSE,D,1,0,0,0,6,12,3,5,3,7,Azusa Pacific v Menlo,at Azusa Pacific,Sheet11
+2025,Menlo,10,Vanguard,TRUE,away,CA,FALSE,L,0,-1,0,1,8,10,5,6,3,4,Vanguard v Menlo,at Vanguard,Sheet11
+2025,Point Loma,1,Menlo,TRUE,home,CA,FALSE,W,3,1,2,1,16,6,10,3,6,3,Point Loma v Menlo,vs Menlo,Sheet13
+2025,Point Loma,2,Concordia Irvine,TRUE,away,CA,FALSE,W,3,1,3,2,13,16,8,8,5,8,Concordia Irvine v Point Loma,at CUI,Sheet13
+2025,Point Loma,3,Biola,TRUE,away,CA,FALSE,W,3,5,5,0,11,7,9,2,2,5,Biola v Point Loma,at Biola,Sheet13
+2025,Point Loma,4,Vanguard,TRUE,home,CA,FALSE,W,3,2,4,2,21,12,9,4,12,8,Point Loma v Vanguard,vs Vanguard,Sheet13
+2025,Point Loma,5,Hawaii Hilo,TRUE,away,HI,TRUE,L,0,-2,0,2,7,7,2,4,5,3,Hawaii Hilo v Point Loma,at Hawaii Hilo,Sheet13
+2025,Point Loma,6,Hawaii Pacific,TRUE,away,HI,TRUE,W,3,2,3,1,14,8,7,2,7,6,Hawaii Pacific v Point Loma,at Hawaii Pacific,Sheet13
+2025,Point Loma,7,Azusa Pacific,TRUE,home,CA,FALSE,W,3,1,2,1,9,9,4,4,5,5,Point Loma v Azusa Pacific,vs Azusa Pacific,Sheet13
+2025,Point Loma,8,Westmont,TRUE,away,CA,FALSE,W,3,1,2,1,13,11,6,2,7,9,Westmont v Point Loma,at Westmont,Sheet13
+2025,Point Loma,9,Jessup,TRUE,home,CA,FALSE,W,3,9,9,0,20,6,14,2,6,4,Point Loma v Jessup,vs Jessup,Sheet13
+2025,Point Loma,10,Fresno Pacific,TRUE,home,CA,FALSE,W,3,4,4,0,17,9,10,3,7,6,Point Loma v Fresno Pacific,vs Fresno Pacific,Sheet13
+2025,Vanguard,1,Jessup,TRUE,home,CA,FALSE,W,3,1,1,0,19,10,7,3,12,7,Vanguard v Jessup,vs Jessup,Sheet8
+2025,Vanguard,2,Hawaii Pacific,TRUE,away,HI,TRUE,W,3,3,3,0,16,8,8,7,8,1,Hawaii Pacific v Vanguard,at Hawaii Pacific,Sheet8
+2025,Vanguard,3,Hawaii Hilo,TRUE,away,HI,TRUE,W,3,1,2,1,7,12,5,4,2,8,Hawaii Hilo v Vanguard,at Hawaii Hilo,Sheet8
+2025,Vanguard,4,Concordia Irvine,TRUE,away,CA,FALSE,W,3,1,2,1,16,9,8,4,8,5,Concordia Irvine v Vanguard,at CUI,Sheet8
+2025,Vanguard,5,Point Loma,TRUE,away,CA,FALSE,L,0,-2,2,4,12,21,4,9,8,12,Point Loma v Vanguard,at Point Loma,Sheet8
+2025,Vanguard,6,Azusa Pacific,TRUE,home,CA,FALSE,D,1,0,1,1,10,10,3,3,7,7,Vanguard v Azusa Pacific,vs Azusa Pacific,Sheet8
+2025,Vanguard,7,Westmont,TRUE,away,CA,FALSE,W,3,5,6,1,15,9,8,4,7,5,Westmont v Vanguard,at Westmont,Sheet8
+2025,Vanguard,8,Biola,TRUE,home,CA,FALSE,D,1,0,1,1,22,9,9,4,13,5,Vanguard v Biola,vs Biola,Sheet8
+2025,Vanguard,9,Dominican,TRUE,home,CA,FALSE,W,3,3,5,2,13,10,9,4,4,6,Vanguard v Dominican,vs Dominican (CA),Sheet8
+2025,Vanguard,10,Menlo,TRUE,home,CA,FALSE,W,3,1,1,0,10,8,6,5,4,3,Vanguard v Menlo,vs Menlo,Sheet8
+2025,Westmont,1,Concordia Irvine,TRUE,home,CA,FALSE,L,0,-2,0,2,7,19,1,9,6,10,Westmont v Concordia Irvine,vs CUI,Sheet10
+2025,Westmont,2,Menlo,TRUE,away,CA,FALSE,L,0,-1,1,2,9,12,4,3,5,9,Menlo v Westmont,at Menlo,Sheet10
+2025,Westmont,3,Fresno Pacific,TRUE,away,CA,FALSE,W,3,1,2,1,7,20,2,9,5,11,Fresno Pacific v Westmont,at Fresno Pacific,Sheet10
+2025,Westmont,4,Azusa Pacific,TRUE,away,CA,FALSE,D,1,0,3,3,11,10,7,7,4,3,Azusa Pacific v Westmont,at Azusa Pacific,Sheet10
+2025,Westmont,5,Biola,TRUE,home,CA,FALSE,L,0,-1,1,2,23,16,7,5,16,11,Westmont v Biola,vs Biola,Sheet10
+2025,Westmont,6,Hawaii Pacific,TRUE,away,HI,TRUE,L,0,-1,2,3,17,18,9,8,8,10,Hawaii Pacific v Westmont,at Hawaii Pacific,Sheet10
+2025,Westmont,7,Chaminade,TRUE,away,HI,TRUE,L,0,-1,3,4,18,14,10,7,8,7,Chaminade v Westmont,at Chaminade,Sheet10
+2025,Westmont,8,Vanguard,TRUE,home,CA,FALSE,L,0,-5,1,6,9,15,4,8,5,7,Westmont v Vanguard,vs Vanguard,Sheet10
+2025,Westmont,9,Point Loma,TRUE,home,CA,FALSE,L,0,-1,1,2,11,13,2,6,9,7,Westmont v Point Loma,vs Point Loma,Sheet10
+2025,Westmont,10,Dominican,TRUE,home,CA,FALSE,W,3,3,3,0,23,11,13,7,10,4,Westmont v Dominican,vs Dominican (CA),Sheet10

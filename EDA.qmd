@@ -43,6 +43,11 @@ Point_Loma <- Point_Loma %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -55,6 +60,11 @@ Azusa <- Azusa %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -67,6 +77,11 @@ Biola <- Biola %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -79,6 +94,11 @@ Chaminade <- Chaminade %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -91,6 +111,11 @@ Concordia <- Concordia %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -103,6 +128,11 @@ Dominican <- Dominican %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -115,6 +145,11 @@ Fresno <- Fresno %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -127,6 +162,11 @@ Hilo <- Hilo %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -139,6 +179,11 @@ HPU <- HPU %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -151,6 +196,11 @@ Jessup <- Jessup %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -163,6 +213,11 @@ Menlo <- Menlo %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+      ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
@@ -175,20 +230,498 @@ Vanguard <- Vanguard %>%
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
 Westmont <- Westmont %>%
   mutate(
-    xG_for     = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
+    xG_for = (`SoT for` * 0.246) + ((`Total shots for` - `SoT for`) * 0.070),
     xG_against = (`SoT against` * 0.246) + ((`Total shots against` - `SoT against`) * 0.070),
-    xG_diff    = xG_for - xG_against,
-    xResult    = case_when(
+    xG_diff = xG_for - xG_against,
+    xResult = case_when(
       xG_diff >= 0.5  ~ "W",
       xG_diff <= -0.5 ~ "L",
       TRUE            ~ "D"
+    ),
+    Result = case_when(
+      Goals == `Goals against` ~ "D",
+      Goals > `Goals against`  ~ "W",
+      Goals < `Goals against`  ~ "L"
     )
   )
 
 
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+all_games <- bind_rows(
+  Point_Loma, Azusa, Biola, Chaminade, Concordia, Dominican,
+  Fresno, Hilo, HPU, Jessup, Menlo, Vanguard, Westmont
+)
+```
+
+```{r}
+Azusa <- Azusa[-11, ]
+
+sum(Azusa$Goals)
+sum(Azusa$`Goals against`)
+sum(Azusa$`Total shots for`)
+sum(Azusa$`Total shots against`)
+sum(Azusa$`SoT for`)
+sum(Azusa$`SoT against`)
+sum(Azusa$`xG_for`)
+sum(Azusa$`xG_against`)
+sum(Azusa$`xG_diff`)
+```
+
+```{r}
+sum(Azusa$xResult == "W", na.rm = TRUE)
+sum(Azusa$xResult == "D", na.rm = TRUE)
+sum(Azusa$xResult == "L", na.rm = TRUE)
+
+sum(Azusa$Result == "W", na.rm = TRUE)
+sum(Azusa$Result == "D", na.rm = TRUE)
+sum(Azusa$Result == "L", na.rm = TRUE)
+```
+
+```{r}
+Azusa_points <- Azusa %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  )
+ 
+sum(Azusa$Points,  na.rm = TRUE)   
+sum(Azusa$xPoints, na.rm = TRUE)
+```
+
+```{r}
+Azusa_totals <- Azusa_points %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Azusa_totals)
+```
+
+```{r}
+Biola <- Biola[-11, ]
+
+sum(Biola$Goals)
+sum(Biola$`Goals against`)
+sum(Biola$`Total shots for`)
+sum(Biola$`Total shots against`)
+sum(Biola$`SoT for`)
+sum(Biola$`SoT against`)
+sum(Biola$`xG_for`)
+sum(Biola$`xG_against`)
+sum(Biola$`xG_diff`)
+
+Biola_points <- Biola %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  )
+ 
+sum(Biola$Points,  na.rm = TRUE)   
+sum(Biola$xPoints, na.rm = TRUE)
+
+Biola_totals <- Biola_points %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Biola_totals)
+```
+
+```{r}
+Chaminade <- Chaminade[-11, ]
+
+Chaminade_totals <- Chaminade %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Chaminade_totals)
+```
+
+```{r}
+#rest of teams
+
+Concordia <- Concordia[-11, ]
+
+Concordia_totals <- Concordia %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Concordia_totals)
+
+
+Dominican <- Dominican[-11, ]
+
+Dominican_totals <- Dominican %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Dominican_totals)
+
+Fresno <- Fresno[-11, ]
+
+Fresno_totals <- Fresno %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Fresno_totals)
+
+Hilo <- Hilo[-11, ]
+
+Hilo_totals <- Hilo %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Hilo_totals)
+
+HPU <- HPU[-11, ]
+
+HPU_totals <- HPU %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(HPU_totals)
+
+Jessup <- Jessup[-11, ]
+
+Jessup_totals <- Jessup %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Jessup_totals)
+
+Menlo <- Menlo[-11, ]
+
+Menlo_totals <- Menlo %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Menlo_totals)
+
+Point_Loma <- Point_Loma[-11, ]
+
+Point_Loma_totals <- Point_Loma %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Point_Loma_totals)
+
+Vanguard <- Vanguard[-11, ]
+
+Vanguard_totals <- Vanguard %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Vanguard_totals)
+
+Westmont <- Westmont[-11, ]
+
+Westmont_totals <- Westmont %>%
+  mutate(
+    Points  = case_when(
+      Result == "W" ~ 3,
+      Result == "D" ~ 1,
+      Result == "L" ~ 0
+    ),
+    xPoints = case_when(
+      xResult == "W" ~ 3,
+      xResult == "D" ~ 1,
+      xResult == "L" ~ 0
+    )
+  ) %>%
+  summarize(
+    across(where(is.numeric), sum, na.rm = TRUE)
+  )
+ 
+print(Westmont_totals)
+
+all_totals <- bind_rows(Biola_totals, Azusa_totals, Point_Loma_totals, Chaminade_totals, Concordia_totals, Dominican_totals, Hilo_totals, HPU_totals, Fresno_totals, Vanguard_totals, Menlo_totals, Westmont_totals, Jessup_totals)
+
+all_totals <- bind_rows(
+  list(
+    "Biola"      = Biola_totals,
+    "Azusa"      = Azusa_totals,
+    "Point Loma" = Point_Loma_totals,
+    "Chaminade"  = Chaminade_totals,
+    "Concordia"  = Concordia_totals,
+    "Dominican"  = Dominican_totals,
+    "Hilo"       = Hilo_totals,
+    "HPU"        = HPU_totals,
+    "Fresno"     = Fresno_totals,
+    "Vanguard"   = Vanguard_totals,
+    "Menlo"      = Menlo_totals,
+    "Westmont"   = Westmont_totals,
+    "Jessup"     = Jessup_totals
+  ),
+  .id = "Team"
+)
+```
+
+```{r}
+ggplot(all_totals, aes(x = reorder(Team, -Points), y = Points)) +
+  geom_col(fill = "#2E86AB") +
+  labs(title = "PacWest Standings by Points", x = NULL, y = "Points") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(all_totals, aes(x = reorder(Team, -xPoints), y = xPoints)) +
+  geom_col(fill = "#F5A623") +
+  labs(title = "PacWest Standings by xPoints", x = NULL, y = "xPoints") +
+  theme_minimal()
+```
+
+```{r}
+library(gt)
+ 
+# --- Build the standings table ---
+standings <- all_totals %>%
+  mutate(
+    GP      = 10,
+    GD      = Goals - `Goals against`,
+    PtsDiff = Points - xPoints
+  ) %>%
+  arrange(desc(Points), desc(GD)) %>%      # rank by points, tiebreak on goal difference
+  mutate(Rank = row_number()) %>%
+  select(
+    Rank, Team, GP,
+    GF = Goals, GA = `Goals against`, GD,
+    Pts = Points, xPts = xPoints,
+    `Pts - xPts` = PtsDiff,
+    xGD = xG_diff
+  )
+ 
+# --- Format as a league table ---
+standings_table <- gt(standings) %>%
+  tab_header(
+    title    = "PacWest League Standings",
+    subtitle = "10-game sample | Pts - xPts: blue = earning more points than shots suggest"
+  ) %>%
+  fmt_number(columns = xGD, decimals = 1) %>%
+  data_color(
+    columns = `Pts - xPts`,
+    palette = c("#D64545", "white", "#2E86AB"),
+    domain  = c(-6, 6)
+  ) %>%
+  cols_align(align = "center", columns = everything()) %>%
+  cols_align(align = "left", columns = Team) %>%
+  tab_style(
+    style     = cell_text(weight = "bold"),
+    locations = cells_body(columns = c(Team, Pts))
+  )
+ 
+standings_table
+ 
+# --- Optional: save as an image ---
+# gtsave(standings_table, "pacwest_standings.png")
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+ 
+# standings in order by points, using GD as a tiebreaker
+standings <- all_totals %>%
+  mutate(GD = Goals - `Goals against`) %>%
+  arrange(desc(Points), desc(GD)) %>%
+  mutate(
+    Rank  = row_number(),
+    Label = factor(paste0(Rank, ". ", Team), levels = rev(paste0(Rank, ". ", Team)))
+  )
+ 
+# league table bar chart
+ggplot(standings, aes(x = Label, y = Points)) +
+  geom_col(fill = "#2E86AB") +
+  geom_text(
+    aes(label = paste0(Points, " pts  (GD ", ifelse(GD > 0, "+", ""), GD, ")")),
+    hjust = -0.1, size = 3.5
+  ) +
+  coord_flip() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.3))) +
+  labs(title = "PacWest Standings", x = NULL, y = "Points") +
+  theme_minimal()
+```
+
+```{r}
+# standings in order by xPoints, using xGD as a tiebreaker
+xStandings <- all_totals %>%
+  mutate(xGD = xG_for - xG_against) %>%
+  arrange(desc(xPoints), desc(xGD)) %>%
+  mutate(
+    Rank  = row_number(),
+    Label = factor(paste0(Rank, ". ", Team), levels = rev(paste0(Rank, ". ", Team)))
+  )
+ 
+# league table bar chart
+ggplot(xStandings, aes(x = Label, y = xPoints)) +
+  geom_col(fill = "#F5A623") +
+  geom_text(
+    aes(label = paste0(xPoints, " xPts  (xGD ", ifelse(xGD > 0, "+", ""), round(xGD, 1), ")")),
+    hjust = -0.1, size = 3.5
+  ) +
+  coord_flip() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.3))) +
+  labs(title = "Expected PacWest Standings", x = NULL, y = "xPoints") +
+  theme_minimal()
 ```
