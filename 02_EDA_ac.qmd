@@ -174,7 +174,7 @@ print(test_xg(test, c(0.33, 0.15), train))
 -   A 0.5 margin turns xG into W/D/L. Why 0.5? How does accuracy change at 0.25 or 0.75?
 -   Treat each team's goals as Poisson with mean xG and compute the probability of a win, draw, and loss. Use `games` here so each match counts once.
 
-### 
+### Poisson-based Monte Carlo simulation
 
 ```{r}
 library(dplyr)
@@ -232,12 +232,124 @@ actual %>%
 
 ```
 
-send simulation to amber
-
 create visualizations/clean it up
-
-search name of what I just did
 
 what do soccer statisticians do with this data
 
 look at multiple years, fit them, see how they relate to 2026
+
+```{r}
+# how often a certain amount of teams hit the exact same positions, and the average amount of similar spots
+table(colSums(hit))
+mean(colSums(hit))
+
+# how often the exact real table appeared
+mean(colSums(hit) == 13)
+```
+
+```{r}
+library(dplyr)
+
+set.seed(1)
+n_sims <- 10000
+
+# season simulation
+simulate_season <- function() {
+  
+  #rpois simulation for goals using xG
+  gA <- rpois(nrow(games), games$xg_for)
+  gB <- rpois(nrow(games), games$xg_against)
+  
+  # points tally, 3 for a win, 1 for a draw, and 0 for a loss
+  ptsA <- 3 * (gA > gB) + (gA == gB)
+  ptsB <- 3 * (gB > gA) + (gA == gB)
+  
+  # makes one long list and uses rowsum() to add totals up by team. [, 1] pulls out the column of totals
+  who  <- c(home, away)
+  pts  <- rowsum(c(ptsA, ptsB), who)[, 1]
+  gd   <- rowsum(c(gA - gB, gB - gA), who)[, 1]
+  gf   <- rowsum(c(gA, gB), who)[, 1]
+
+  # orders the team by points, most points higher in the standings, then tie breaks by goal different and then goals scored
+  pos <- integer(13)
+  pos[order(-pts, -gd, -gf, runif(13))] <- 1:13
+  c(pos, pts)                       
+}
+
+# replicates the season 10,000 times, makes a matrix of each season as a specific column and 26 rows for the 13 positions and the 13 total amounts of points
+sims      <- replicate(n_sims, simulate_season())
+
+# Split the two halves back apart so they're easier to work with
+positions <- sims[1:13, ]                           
+points    <- sims[14:26, ]                       
+
+#adds team names to rows
+rownames(positions) <- rownames(points) <- actual$team
+
+# position probability matrix 
+# Row = team, column = finishing position, cell = P(probability that a team finishes in that spot)
+# for each position j, positions == j is TRUE wherever a team finished in j position
+pos_probs <- sapply(1:13, function(j) rowMeans(positions == j))
+dimnames(pos_probs) <- list(team = actual$team, position = 1:13)
+
+round(pos_probs, 3)   # full matrix
+
+# summary of probabilities 
+playoff_spots <- 4     # number of teams that make the playoffs
+
+summary_probs <- tibble(
+  team         = actual$team,
+  actual_pos   = actual$actual_pos,
+  # chances of winning the league
+  p_win_league = rowMeans(positions == 1),
+  # chances of making the playoffs
+  p_playoffs   = rowMeans(positions <= playoff_spots),
+  #chances of landing in the exact spot they were meant to finish in
+  p_real_spot  = rowMeans(positions == actual$actual_pos)
+) %>%
+  arrange(actual_pos) # shown in a table
+
+summary_probs
+```
+
+```{r}
+# uncertainty intervals
+# runs quantile() on each speicific row (why the 1 is there) and asks for the the 5th, 50th, and 95th percentile in points and position
+#t() helps flip apply() which originally has data in column form
+
+q_pts <- t(apply(points,    1, quantile, probs = c(0.05, 0.50, 0.95)))
+q_pos <- t(apply(positions, 1, quantile, probs = c(0.05, 0.50, 0.95)))
+
+intervals <- tibble(
+  team         = actual$team,
+  actual_pos   = actual$actual_pos,  # where they really finished
+  actual_pts   = actual$pts,    #the points they had
+  xpts_mean    = rowMeans(points),    # average points across all 10,000 fake seasons. This is the xPoints number
+  
+  # the point  and position range: 5th percentile, median, and 95th percentile.
+  # q_pts and q_pos has 3 columns, so [, 1] / [, 2] / [, 3] grab each one in order.
+  # Together p05 and p95 give a 90% range, meaning 90% of simulated seasons
+  # landed between them.
+  pts_p05      = q_pts[, 1],
+  pts_median   = q_pts[, 2],
+  pts_p95      = q_pts[, 3],
+  pos_p05      = q_pos[, 1],
+  pos_median   = q_pos[, 2],
+  pos_p95      = q_pos[, 3],
+  
+  # where the real points total falls in the simulated distribution
+  # (near 0 = unlucky, near 1 = lucky or genuinely clinical)
+  
+  # For each team i, points[i, ] is its 10,000 simulated totals, and
+  # actual$pts[i] is its real total. `points[i, ] <= actual$pts[i]` is TRUE
+  # in every fake season where the team scored at or below its real points,
+  # and mean() turns that into a share. So 0.95 means the team's real points
+  # beat about 95% of the simulated seasons. seq_len(13) just loops over
+  # the 13 teams. Because points are whole numbers, seasons that tie the real
+  # total are counted too, so the percentile leans a bit high.
+  actual_pts_percentile = sapply(seq_len(13), function(i) mean(points[i, ] <= actual$pts[i]))
+) %>%
+  arrange(actual_pos)  #show in real table order
+
+intervals
+```
