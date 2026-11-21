@@ -407,17 +407,19 @@ intervals
 
 -   For each team, `xpts_mean` is its average points across the 10,000 simulated seasons (its expected points), and `pts_p05` to `pts_p95` is the range that covers 90% of those seasons. `actual_pts_percentile` tells you where the real points total sits in that distribution, so 0.98 means the team beat 98% of simulated seasons.
 
+-   Only two teams fall outside their 90% range, and that’s about what you’d expect. Point Loma’s 27 points is just above its upper bound (26), and Jessup’s 1 point is below its lower bound (3). With 13 teams and a 90% range, you’d expect roughly 1 team outside by chance, so 2 is not alarming. It does mean these two seasons were genuinely unusual. Everyone else is inside their range.
+
 -   The table has three tiers by expected points:
 
-    1.   Contenders (15.4–19.9): Point Loma, Hilo, Concordia Irvine, Vanguard, Azusa, Fresno and Menlo. All their `pos_p05` is 1.
+    1.  Contenders (15.4–19.9): Point Loma, Hilo, Concordia Irvine, Vanguard, Azusa, Fresno and Menlo. All their `pos_p05` is 1.
 
     2.  Middle (10.7–12.5): Westmont, Biola, Hawaii Pacific and Dominican.
 
     3.  Bottom (5.3–8.0): Jessup and Chaminade.
 
--   **Chaminade are** in the bottom 4 in nearly every simulation (position range 10–13, median 13), but finished 11th. Their 8 points sit near the top of their range (95th percentile is 10).
+-   Chaminade are in the bottom 4 in nearly every simulation (position range 10–13, median 13), but finished 11th. Their 8 points sit near the top of their range (95th percentile is 10).
 
-    **Westmont and Jessup lost the most.** Westmont’s range is 6–19 points, so 7 is near the bottom of it (10th percentile). Jessup’s real finish is at the extreme edge (2nd percentile).
+-   Westmont and Jessup lost the most. Westmont’s range is 6–19 points, so 7 is near the bottom of it (10th percentile). Jessup’s real finish is at the extreme edge (2nd percentile).
 
 ```{r}
 library(tidyverse)
@@ -438,7 +440,7 @@ theme_table <- theme_minimal(base_size = 12) +
         legend.position    = "none",
         axis.title.y       = element_blank())
 
-# ---- 1. Actual league table -------------------------------------------------
+# The normal league table from the real games
 actual_tbl <- actual |>
   mutate(label   = paste0(actual_pos, ". ", team),
          label   = fct_reorder(label, -actual_pos),   # 1st at the top
@@ -459,8 +461,7 @@ p_actual <- ggplot(actual_tbl, aes(pts, label, fill = playoff)) +
 
 p_actual
 
-# ---- 2. Expected league table -----------------------------------------------
-# Ordered by average points across the 10,000 simulated seasons (xPoints).
+# The expected league table,, ordered by average points across the 10,000 simulated seasons (xPts).
 # Bar = xPoints, whisker = 90% range, diamond = points actually earned.
 expected_tbl <- intervals |>
   arrange(desc(xpts_mean)) |>
